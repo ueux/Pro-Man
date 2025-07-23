@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import ProjectHeader from "@/app/projects/ProjectHeader";
 import Board from "../BoardView";
 import List from "../ListView";
@@ -9,18 +9,24 @@ import Table from "../TableView";
 import ModalNewTask from "@/app/_components/ModalNewTask";
 import { useGetProjectsQuery } from "@/state/api";
 
-type Props = {
+interface PageProps {
   params: { id: string };
-};
+}
 
-const Project = ({ params }: Props) => {
-  const { id } = use(params);
+const Project = ({ params }: PageProps) => {
+  const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
+
   // Fetch project data
-  const { data: project, isLoading, error } = useGetProjectsQuery(id);
+  const { data: projects, isLoading, error } = useGetProjectsQuery();
+
   if (isLoading) return <div>Loading project...</div>;
-  if (error || !project) return <div>Error loading project</div>;
+  if (error || !projects) return <div>Error loading project</div>;
+
+  // Find the specific project by ID
+  const project = projects.find(p => p.id.toString() === id);
+  if (!project) return <div>Project not found</div>;
 
   return (
     <div>
@@ -29,7 +35,11 @@ const Project = ({ params }: Props) => {
         onClose={() => setIsModalNewTaskOpen(false)}
         id={id}
       />
-      <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} project={project}  />
+      <ProjectHeader
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        project={project}
+      />
       {activeTab === "Board" && (
         <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
