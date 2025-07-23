@@ -60,7 +60,7 @@ const TaskColumn = ({
   setIsModalNewTaskOpen,
   isDarkMode,
 }: TaskColumnProps) => {
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{ isOver },] = useDrop(() => ({
     accept: "task",
     drop: (item: { id: number }) => moveTask(item.id, status),
     collect: (monitor) => ({
@@ -136,7 +136,7 @@ type TaskProps = {
 };
 
 const Task = ({ task }: TaskProps) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{ isDragging },] = useDrag(() => ({
     type: "task",
     item: { id: task.id },
     collect: (monitor) => ({
