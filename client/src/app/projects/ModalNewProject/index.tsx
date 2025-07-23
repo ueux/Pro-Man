@@ -35,11 +35,6 @@ const ModalNewProject = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
       handleClose();
     } catch (error) {
       console.error("Failed to create project:", error);
-      toast.error(
-        error.data?.message ||
-        error.message ||
-        "Failed to create project. Please try again."
-      );
     }
   };
 
