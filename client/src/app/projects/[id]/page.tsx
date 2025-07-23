@@ -9,11 +9,8 @@ import Table from "../TableView";
 import ModalNewTask from "@/app/_components/ModalNewTask";
 import { useGetProjectsQuery } from "@/state/api";
 
-interface PageProps {
-  params: { id: string };
-}
 
-const Project = ({ params }: PageProps) => {
+const Project = ({ params }) => {
   const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
