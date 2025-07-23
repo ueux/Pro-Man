@@ -1,8 +1,8 @@
-import dynamic from "next/dynamic";
+// app/projects/[id]/page.tsx
+import Project from "../../_components/project";
 
-// Dynamically import the Client Component
-const Project = dynamic(() => import("../../_components/project"), { ssr: false });
-
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  return <Project params={params} />;
+const ProjectPage =async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  return <Project id={id} />;
 }
+export default ProjectPage
