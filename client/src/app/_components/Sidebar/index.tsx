@@ -50,7 +50,7 @@ const Sidebar = () => {
       {/* Team Info */}
       <div className="team-info">
         <div className="team-logo">
-          <Image src="https://ap-south-1.console.aws.amazon.com/s3/object/pm--s3--images0?region=ap-south-1&bucketType=general&prefix=public/logo.png" alt="Team Logo" fill className="object-cover" />
+          <Image src="https://pm--s3--images0.s3.ap-south-1.amazonaws.com/public/logo.png" alt="Team Logo" fill className="object-cover" />
         </div>
         <div>
           <h3 className="team-name">PRO-MAN TEAM</h3>

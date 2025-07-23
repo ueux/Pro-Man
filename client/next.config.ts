@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {protocol: "https",
-        hostname: "ap-south-1.console.aws.amazon.com/s3/object/pm--s3--images0?region=ap-south-1&bucketType=general&prefix=public",
+        hostname: "pm--s3--images0.s3.ap-south-1.amazonaws.com/public",
         port: "",
         pathname:"/**"
       }
