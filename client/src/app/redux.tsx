@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRef } from "react";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
@@ -24,17 +25,18 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 const createNoopStorage = () => {
   return {
-    getItem() {
+    getItem(_key: string): Promise<string | null> {
       return Promise.resolve(null);
     },
-    setItem(_, value) {
+    setItem(_key: string, value: string): Promise<string> {
       return Promise.resolve(value);
     },
-    removeItem() {
+    removeItem(_key: string): Promise<void> {
       return Promise.resolve();
     },
   };
 };
+
 
 const storage =
   typeof window === "undefined"
@@ -81,10 +83,8 @@ interface StoreProviderProps {
   children: React.ReactNode;
 }
 
-export default function StoreProvider({
-  children,
-}: StoreProviderProps) {
-  const storeRef = useRef<AppStore>();
+export default function StoreProvider({ children }: StoreProviderProps) {
+  const storeRef = useRef<AppStore | null>(null); // ✅ Fixed here
   if (!storeRef.current) {
     storeRef.current = makeStore();
   }

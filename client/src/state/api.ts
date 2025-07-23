@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
+import { AuthUser, fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 
 export interface Project {
   id: number;
@@ -89,23 +89,43 @@ export const api = createApi({
   reducerPath: "api",
   tagTypes: ["Projects", "Tasks", "Users", "Teams"],
   endpoints: (build) => ({
-    getAuthUser: build.query({
-      queryFn: async (_, _queryApi, _extraOptions, fetchWithBQ) => {
-        try {
-          const user = await getCurrentUser();
-          const session = await fetchAuthSession();
-          if (!session) throw new Error("No session found");
-          const { userSub } = session;
-          const userDetailsResponse = await fetchWithBQ(`users/${userSub}`);
-          const userDetails = userDetailsResponse.data as User;
+    getAuthUser: build.query<{ user: AuthUser; userSub: string | undefined; userDetails: User },void>({
+  queryFn: async (_, _queryApi, _extraOptions, fetchWithBQ) => {
+    try {
+      const user = await getCurrentUser();
+      const session = await fetchAuthSession();
+      if (!session) {
+        return {
+          error: {
+            status: 401,
+            statusText: "Unauthorized",
+            data: "No session found",
+          },
+        };
+      }
 
-          return { data: { user, userSub, userDetails } };
-        } catch (error) {
-          const err = error as Error;
-          return { error: err.message || "Could not fetch user data" };
-        }
-      },
-    }),
+      const { userSub } = session;
+      const userDetailsResponse = await fetchWithBQ(`users/${userSub}`);
+
+      if (userDetailsResponse.error) {
+        return { error: userDetailsResponse.error };
+      }
+
+      const userDetails = userDetailsResponse.data as User;
+
+      return { data: { user, userSub, userDetails } };
+    } catch (err) {
+      return {
+        error: {
+          status: 500,
+          statusText: "Internal Server Error",
+          data: (err as Error).message || "Unknown error occurred",
+        },
+      };
+    }
+  },
+}),
+
     getProjects: build.query<Project[], void>({
       query: () => "projects",
       providesTags: ["Projects"],
