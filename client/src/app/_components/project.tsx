@@ -1,4 +1,3 @@
-// components/Project.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -10,7 +9,8 @@ import Table from "../projects/TableView";
 import ModalNewTask from "@/app/_components/ModalNewTask";
 import { useGetProjectsQuery } from "@/state/api";
 
-const Project = ({ id }: { id: string }) => {
+const Project = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
@@ -19,7 +19,7 @@ const Project = ({ id }: { id: string }) => {
   if (isLoading) return <div>Loading project...</div>;
   if (error || !projects) return <div>Error loading project</div>;
 
-  const project = projects.find(p => p.id.toString() === id);
+  const project = projects.find((p) => p.id.toString() === id);
   if (!project) return <div>Project not found</div>;
 
   return (
