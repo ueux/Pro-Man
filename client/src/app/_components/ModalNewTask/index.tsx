@@ -109,7 +109,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       });
       setErrors({});
       onClose();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Failed to create task:", error);
 
       let errorMessage = "Failed to create task";
