@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @next/next/no-async-client-component */
 "use client";
 
 import React, { useState } from "react";
@@ -11,19 +9,16 @@ import Table from "../TableView";
 import ModalNewTask from "@/app/_components/ModalNewTask";
 import { useGetProjectsQuery } from "@/state/api";
 
-
-const Project =  async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
+const Project = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
-  // Fetch project data
   const { data: projects, isLoading, error } = useGetProjectsQuery();
 
   if (isLoading) return <div>Loading project...</div>;
   if (error || !projects) return <div>Error loading project</div>;
 
-  // Find the specific project by ID
   const project = projects.find(p => p.id.toString() === id);
   if (!project) return <div>Project not found</div>;
 
