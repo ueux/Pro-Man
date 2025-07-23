@@ -32,7 +32,7 @@ const columns: GridColDef[] = [
       <div className="flex h-full w-full items-center justify-center">
         <div className="h-9 w-9">
           <Image
-            src={`/${params.value}`}
+            src={`https://ap-south-1.console.aws.amazon.com/s3/object/pm--s3--images0?region=ap-south-1&bucketType=general&prefix=public/${params.value}`}
             alt={params.row.username}
             width={100}
             height={50}

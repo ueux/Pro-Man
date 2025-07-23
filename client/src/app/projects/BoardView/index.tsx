@@ -173,7 +173,7 @@ const Task = ({ task }: TaskProps) => {
       {task.attachments?.[0] && (
         <div className="relative h-32 w-full overflow-hidden rounded-t-lg">
           <Image
-            src={`/${task.attachments[0].fileURL}`}
+            src={`https://ap-south-1.console.aws.amazon.com/s3/object/pm--s3--images0?region=ap-south-1&bucketType=general&prefix=public/${task.attachments[0].fileURL}`}
             alt={task.attachments[0].fileName}
             fill
             className="object-cover"
@@ -224,7 +224,7 @@ const Task = ({ task }: TaskProps) => {
             {task.assignee && (
               <div className="relative h-8 w-8">
                 <Image
-                  src={`/${task.assignee.profilePictureUrl}`}
+                  src={`https://ap-south-1.console.aws.amazon.com/s3/object/pm--s3--images0?region=ap-south-1&bucketType=general&prefix=public/${task.assignee.profilePictureUrl}`}
                   alt={task.assignee.username}
                   fill
                   className="rounded-full border-2 border-white object-cover dark:border-gray-800"
@@ -234,7 +234,7 @@ const Task = ({ task }: TaskProps) => {
             {task.author && (
               <div className="relative h-8 w-8">
                 <Image
-                  src={`/${task.author.profilePictureUrl}`}
+                  src={`https://ap-south-1.console.aws.amazon.com/s3/object/pm--s3--images0?region=ap-south-1&bucketType=general&prefix=public/${task.author.profilePictureUrl}`}
                   alt={task.author.username}
                   fill
                   className="rounded-full border-2 border-white object-cover dark:border-gray-800"
