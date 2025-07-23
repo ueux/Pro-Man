@@ -79,7 +79,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
     }
 
     try {
-      const result = await createTask({
+       await createTask({
         title: formData.title,
         description: formData.description,
         status: formData.status,

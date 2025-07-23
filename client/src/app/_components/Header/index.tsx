@@ -1,5 +1,4 @@
 import React from "react";
-import { useAppSelector } from "@/app/redux";
 
 type Props = {
   name: string;

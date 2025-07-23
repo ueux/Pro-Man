@@ -3,7 +3,7 @@ import { useAppSelector } from "@/app/redux";
 import { useGetTasksQuery } from "@/state/api";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import React from "react";
-import { Circle, Flag, Loader2, Tag, User } from "lucide-react";
+import {  Flag, Loader2, Tag, User } from "lucide-react";
 
 type Props = {
   id: string;

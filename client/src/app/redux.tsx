@@ -24,13 +24,13 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 const createNoopStorage = () => {
   return {
-    getItem(_key: string) {
+    getItem() {
       return Promise.resolve(null);
     },
-    setItem(_key: string, value: any) {
+    setItem(_, value) {
       return Promise.resolve(value);
     },
-    removeItem(_key: string) {
+    removeItem() {
       return Promise.resolve();
     },
   };
@@ -45,7 +45,7 @@ const persistConfig = {
   key: "root",
   storage,
   version: 1,
-  whitelist: ["global"], // Only persist the global slice
+  whitelist: ["global"],
 };
 
 const rootReducer = combineReducers({
@@ -77,11 +77,13 @@ export type AppDispatch = AppStore["dispatch"];
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+interface StoreProviderProps {
+  children: React.ReactNode;
+}
+
 export default function StoreProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: StoreProviderProps) {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
     storeRef.current = makeStore();

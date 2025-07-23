@@ -15,7 +15,6 @@ import {
 import React, { useState } from "react";
 import ModalNewProject from "./ModalNewProject";
 import Header from "../_components/Header";
-import { useAppSelector } from "@/app/redux";
 
 type Props = {
   activeTab: string;

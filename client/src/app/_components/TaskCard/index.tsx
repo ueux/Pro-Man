@@ -2,7 +2,7 @@ import { Task } from "@/state/api";
 import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
-import { Clock, MessageSquare, User, Tag, Flag, Circle, CheckCircle } from "lucide-react";
+import { Clock, MessageSquare, Tag, Flag, Circle, CheckCircle } from "lucide-react";
 import { useAppSelector } from "@/app/redux";
 
 type Props = {

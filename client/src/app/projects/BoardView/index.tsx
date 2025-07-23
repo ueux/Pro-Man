@@ -136,7 +136,7 @@ type TaskProps = {
   isDarkMode: boolean;
 };
 
-const Task = ({ task, isDarkMode }: TaskProps) => {
+const Task = ({ task }: TaskProps) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
     item: { id: task.id },
