@@ -86,7 +86,6 @@ const TaskColumn = ({
 
   return (
     <div
-      ref={drop}
       className={`rounded-lg transition-all duration-200 ${isOver ? (isDarkMode ? "bg-gray-900/50" : "bg-blue-50") : ""} ${
         statusBgColors[status as keyof typeof statusBgColors]
       }`}
@@ -167,7 +166,6 @@ const Task = ({ task }: TaskProps) => {
 
   return (
     <div
-      ref={drag}
       className={`transform rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 ${
         isDragging ? "opacity-50 scale-95" : "opacity-100 scale-100"
       }`}

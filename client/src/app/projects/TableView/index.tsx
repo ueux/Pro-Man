@@ -207,18 +207,8 @@ const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
         <DataGrid
           rows={tasks}
           columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10, 25, 50]}
           checkboxSelection
-          disableSelectionOnClick
           sx={getDataGridStyles()}
-          components={{
-            NoRowsOverlay: () => (
-              <div className="flex h-full w-full items-center justify-center">
-                No tasks found
-              </div>
-            ),
-          }}
         />
       </div>
     </div>
