@@ -42,7 +42,7 @@ const formFields = {
   },
 };
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }:{children:React.ReactNode}) => {
   return (
     <div>
       <Authenticator formFields={formFields}>

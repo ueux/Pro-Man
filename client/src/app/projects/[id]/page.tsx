@@ -10,7 +10,7 @@ import ModalNewTask from "@/app/_components/ModalNewTask";
 import { useGetProjectsQuery } from "@/state/api";
 
 
-const Project = ({ params }) => {
+const Project = ({ params }:{params:{id:string}}) => {
   const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
