@@ -25,6 +25,7 @@ const Navbar = () => {
 
   if (!currentUser) return null;
   const currentUserDetails = currentUser?.userDetails;
+  console.log(currentUserDetails)
   return (
     <header className="navbar">
       <div className="navbar-section">
