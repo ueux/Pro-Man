@@ -3,6 +3,9 @@ import { Menu, Moon, Search, Settings, Sun } from "lucide-react";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
+import { useGetAuthUserQuery } from "@/state/api";
+import { signOut } from "@aws-amplify/auth";
+import Image from "next/image";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +13,19 @@ const Navbar = () => {
     (state) => state.global.isSidebarCollapsed,
   );
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const { data: currentUser } = useGetAuthUserQuery();
 
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Error signing out", error);
+    }
+  };
+
+  if (!currentUser) return null;
+  const currentUserDetails = currentUser?.userDetails;
+  console.log(currentUserDetails)
   return (
     <header className="navbar">
       <div className="navbar-section">
@@ -47,30 +62,34 @@ const Navbar = () => {
           )}
         </button>
 
-        <Link
-          href="/settings"
-          className="action-button"
-          aria-label="Settings"
-        >
+        <Link href="/settings" className="action-button" aria-label="Settings">
           <Settings className="menu-icon" />
         </Link>
 
         <div className="divider hidden md:block"></div>
 
-        {/* User Profile - Uncomment when ready */}
-        {/* <div className="user-profile">
-          <div className="user-avatar">
-            <Image
-              src={currentUserDetails?.avatar || "/default-avatar.png"}
-              alt="User profile"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <span className="user-name hidden md:block">
-            {currentUserDetails?.name}
+        {/* User Profile Section */}
+        <div className="flex items-center gap-2 ml-2">
+          {currentUserDetails?.profilePictureUrl && (
+            <div className="h-8 w-8 relative rounded-full overflow-hidden">
+              <Image
+                src={`https://pm--s3--images0.s3.ap-south-1.amazonaws.com/public/${currentUserDetails.profilePictureUrl}`}
+                alt={currentUserDetails.username + " profile"}
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
+          <span className="text-sm text-gray-800 dark:text-white hidden md:block">
+            {currentUserDetails?.username}
           </span>
-        </div> */}
+          <button
+            className="ml-2 hidden md:block bg-blue-400 hover:bg-blue-500 text-white text-xs font-bold py-1 px-4 rounded"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
     </header>
   );
