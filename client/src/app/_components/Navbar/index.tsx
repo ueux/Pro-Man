@@ -25,7 +25,6 @@ const Navbar = () => {
 
   if (!currentUser) return null;
   const currentUserDetails = currentUser?.userDetails;
-  console.log(currentUserDetails)
   return (
     <header className="navbar">
       <div className="navbar-section">
@@ -81,7 +80,7 @@ const Navbar = () => {
             </div>
           )}
           <span className="text-sm text-gray-800 dark:text-white hidden md:block">
-            {currentUserDetails?.username}
+            {currentUser?.user.username}
           </span>
           <button
             className="ml-2 hidden md:block bg-blue-400 hover:bg-blue-500 text-white text-xs font-bold py-1 px-4 rounded"

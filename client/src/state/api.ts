@@ -94,7 +94,6 @@ export const api = createApi({
     try {
       const user = await getCurrentUser();
       const session = await fetchAuthSession();
-      console.log(user, session)
       if (!session) {
         return {
           error: {
@@ -115,7 +114,7 @@ console.log(userDetailsResponse)
 
       const userDetails = userDetailsResponse.data as User;
 
-      return { data: { user, userSub, userDetails } };
+      return { data: { user,accessToken, userSub, userDetails } };
     } catch (err) {
       return {
         error: {
